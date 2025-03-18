@@ -1,5 +1,6 @@
 package com.devsuperior.dscommerce.repositories;
 
+import com.devsuperior.dscommerce.dto.ProductMinDto;
 import com.devsuperior.dscommerce.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

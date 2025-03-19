@@ -1,6 +1,8 @@
 package com.devsuperior.dscommerce.services;
 
+import com.devsuperior.dscommerce.dto.CategoryDTO;
 import com.devsuperior.dscommerce.dto.ProductMinDto;
+import com.devsuperior.dscommerce.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -63,7 +65,7 @@ public class ProductService {
     		throw new ResourceNotFoundException("Recurso não encontrado");
     	}
     	try {
-            repository.deleteById(id);    		
+            repository.deleteById(id);
     	}
         catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Falha de integridade referencial");
@@ -75,5 +77,12 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        entity.getCategories().clear();
+        for (CategoryDTO catDto: dto.getCategories()){
+            Category cat = new Category();
+            cat.setId(catDto.getId());
+            entity.getCategories().add(cat);
+        }
     }
 }
